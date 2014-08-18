@@ -1,17 +1,35 @@
 package com.example.bluetoothpayment;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 
-public class SendMainActivity extends ActionBarActivity {
+public class SendMainActivity extends ActionBarActivity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_send_main);
+
+	    View btnSendMainRegister = findViewById(R.id.btn_send_main_register);
+	    btnSendMainRegister.setOnClickListener(this);
+	    View btnSendMainStart = findViewById(R.id.btn_send_main_start);
+	    btnSendMainStart.setOnClickListener(this);
 	}
+
+	  @Override
+	  public void onClick(View v) {
+	    switch(v.getId()){
+	    case R.id.btn_send_main_register:
+		      Log.d("BP", "SendMainRegister");
+	    case R.id.btn_send_main_start:
+		      Log.d("BP", "SendMainStart");
+	    }  
+	  }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
