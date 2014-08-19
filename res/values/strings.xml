@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--
+    <string name=""></string>
+    -->
     <string name="app_name">BluetoothPayment</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="send_main_register">Regist Your Card</string>
+    <string name="send_main_register">Register Your Card</string>
     <string name="send_main_start">Start</string>
+    <string name="card_number">Card Number</string>
+    <string name="valid_date">Valid Date</string>
+    <string name="your_name">Your Name</string>
+    <string name="submit">Submit</string>
+    <string name="register">Register</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
 
 </resources>

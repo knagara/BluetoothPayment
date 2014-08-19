@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="116dp"
-        android:background="@drawable/button_corner"
+        android:background="@drawable/button_corner_green"
         android:text="@string/send_main_register" />
 
     <Button
