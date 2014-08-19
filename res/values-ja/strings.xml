@@ -21,5 +21,6 @@
     <string name="register_success">正常に登録が完了しました</string>
     <string name="sender">送信側（客）</string>
     <string name="receiver">受信側（店）</string>
+    <string name="start_sending">接続を開始します（30分間有効）</string>
 
 </resources>

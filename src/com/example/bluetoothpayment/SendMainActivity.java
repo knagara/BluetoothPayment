@@ -37,23 +37,24 @@ public class SendMainActivity extends ActionBarActivity implements
 		//Bluetooth
 		//BluetoothAdapter取得
 		BluetoothAdapter Bt = BluetoothAdapter.getDefaultAdapter();
-		if(!Bt.equals(null)){
+		//if(!Bt.equals(null)){
+		if(Bt != null){
 		    //Bluetooth対応端末の場合の処理
 		    Log.d("BP","Bluetoothがサポートされてます。");
+			boolean btEnable = Bt.isEnabled();
+		    if(btEnable == true){
+		        //BluetoothがONだった場合の処理
+		    }else{
+		        //OFFだった場合、ONにすることを促すダイアログを表示する画面に遷移
+		        Intent btOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+		        startActivityForResult(btOn, REQUEST_ENABLE_BLUETOOTH);
+		    }
 		}else{
 		    //Bluetooth非対応端末の場合の処理
-		    Log.d("BP","Bluetoothがサポートれていません。");
-		    Toast.makeText(this, "Bluetoothがサポートれていません", Toast.LENGTH_LONG).show();
+		    Log.d("BP","Bluetoothがサポートされていません。");
+		    Toast.makeText(this, "Bluetoothがサポートされていません", Toast.LENGTH_LONG).show();
 		    finish();
 		}
-		boolean btEnable = Bt.isEnabled();
-	    if(btEnable == true){
-	        //BluetoothがONだった場合の処理
-	    }else{
-	        //OFFだった場合、ONにすることを促すダイアログを表示する画面に遷移
-	        Intent btOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-	        startActivityForResult(btOn, REQUEST_ENABLE_BLUETOOTH);
-	    }
 	}
 
 	@Override
@@ -68,9 +69,11 @@ public class SendMainActivity extends ActionBarActivity implements
 	    case R.id.btn_send_main_start:
 		      Log.d("BP", "SendMainStart");
 		      if(sp.getBoolean("IsCardRegistered",false)==true){
-		    	  // TODO
-		    	  //intent = new Intent(SendMainActivity.this, RegisterCardActivity.class);
-			      //startActivity(intent);
+		    	//自デバイスの検出を有効にする
+		          Intent discoverableOn = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+		          discoverableOn.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 1800);
+		          startActivity(discoverableOn);
+		    	  Toast.makeText(this, getString(R.string.start_sending), Toast.LENGTH_LONG).show();
 		      }else{
 		    	  Toast.makeText(this, getString(R.string.please_register), Toast.LENGTH_SHORT).show();
 		      }

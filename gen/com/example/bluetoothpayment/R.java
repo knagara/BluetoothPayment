@@ -1281,6 +1281,7 @@ containing a value of this type.
         public static final int send_main_register=0x7f0a0010;
         public static final int send_main_start=0x7f0a0011;
         public static final int sender=0x7f0a001c;
+        public static final int start_sending=0x7f0a001e;
         public static final int submit=0x7f0a0015;
         public static final int valid_date=0x7f0a0013;
         public static final int year=0x7f0a0018;
