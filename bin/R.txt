@@ -249,7 +249,8 @@ int id action_context_bar 0x7f05001d
 int id action_menu_divider 0x7f050016
 int id action_menu_presenter 0x7f050017
 int id action_mode_close_button 0x7f050024
-int id action_settings 0x7f05004d
+int id action_receiver 0x7f05004e
+int id action_sender 0x7f05004d
 int id activity_chooser_view_content 0x7f050025
 int id always 0x7f05000b
 int id beginning 0x7f050011
@@ -363,9 +364,14 @@ int string app_name 0x7f0a000d
 int string card_number 0x7f0a0012
 int string hello_world 0x7f0a000e
 int string month 0x7f0a0017
+int string please_fill 0x7f0a001a
+int string please_register 0x7f0a0019
+int string receiver 0x7f0a001d
 int string register 0x7f0a0016
+int string register_success 0x7f0a001b
 int string send_main_register 0x7f0a0010
 int string send_main_start 0x7f0a0011
+int string sender 0x7f0a001c
 int string submit 0x7f0a0015
 int string valid_date 0x7f0a0013
 int string year 0x7f0a0018

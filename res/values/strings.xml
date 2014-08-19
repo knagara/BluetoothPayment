@@ -16,5 +16,10 @@
     <string name="register">Register</string>
     <string name="month">Month</string>
     <string name="year">Year</string>
+    <string name="please_register">Please register your card first</string>
+    <string name="please_fill">Please fill in the forms</string>
+    <string name="register_success">Register Success</string>
+    <string name="sender">Sender</string>
+    <string name="receiver">Receiver</string>
 
 </resources>
