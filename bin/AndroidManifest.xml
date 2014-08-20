@@ -27,6 +27,9 @@
         <activity
             android:name="RegisterCardActivity">
         </activity>
+        <activity
+            android:name="ReceiveMainActivity">
+        </activity>
     </application>
 
 </manifest>

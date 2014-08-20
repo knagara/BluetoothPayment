@@ -98,7 +98,8 @@ public class SendMainActivity extends ActionBarActivity implements
 			return true;
 		}
 		if (id == R.id.action_receiver) {
-			// TODO
+		      Intent intent = new Intent(SendMainActivity.this, ReceiveMainActivity.class);
+		      startActivity(intent);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
