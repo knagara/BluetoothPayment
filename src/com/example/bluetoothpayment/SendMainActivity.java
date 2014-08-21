@@ -19,6 +19,7 @@ public class SendMainActivity extends ActionBarActivity implements
 
 	SharedPreferences sp;
 	//Editor edit;
+	BluetoothAdapter Bt;
     private final int REQUEST_ENABLE_BLUETOOTH = 10;
 	
 	@Override
@@ -34,9 +35,10 @@ public class SendMainActivity extends ActionBarActivity implements
 		View btnSendMainStart = findViewById(R.id.btn_send_main_start);
 		btnSendMainStart.setOnClickListener(this);
 		
+		
 		//Bluetooth
 		//BluetoothAdapter取得
-		BluetoothAdapter Bt = BluetoothAdapter.getDefaultAdapter();
+		Bt = BluetoothAdapter.getDefaultAdapter();
 		//if(!Bt.equals(null)){
 		if(Bt != null){
 		    //Bluetooth対応端末の場合の処理
@@ -55,6 +57,7 @@ public class SendMainActivity extends ActionBarActivity implements
 		    Toast.makeText(this, "Bluetoothがサポートされていません", Toast.LENGTH_LONG).show();
 		    finish();
 		}
+		
 	}
 
 	@Override
@@ -73,6 +76,10 @@ public class SendMainActivity extends ActionBarActivity implements
 		          Intent discoverableOn = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
 		          discoverableOn.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 1800);
 		          startActivity(discoverableOn);
+	              //サーバースレッド起動、クライアントのからの要求待ちを開始
+		          String myName = sp.getString("your_name","default name");
+	                BluetoothServerThread BtServerThread = new BluetoothServerThread(this, myName , Bt);
+	                BtServerThread.start();
 		    	  Toast.makeText(this, getString(R.string.start_sending), Toast.LENGTH_LONG).show();
 		      }else{
 		    	  Toast.makeText(this, getString(R.string.please_register), Toast.LENGTH_SHORT).show();
