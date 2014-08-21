@@ -14,7 +14,7 @@ public class BluetoothClientThread extends Thread {
     private final BluetoothDevice mDevice;
     private Context mContext;
     //UUIDの生成
-    public static final UUID TECHBOOSTER_BTSAMPLE_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    public static final UUID BLUETOOTH_UUID = UUID.fromString("159D63C4-E4C1-43F8-AB06-77AC5716EBF2");
     static BluetoothAdapter myClientAdapter;
     public String myNumber;
  
@@ -29,7 +29,7 @@ public class BluetoothClientThread extends Thread {
  
         try{
             //自デバイスのBluetoothクライアントソケットの取得
-            tmpSock = device.createRfcommSocketToServiceRecord(TECHBOOSTER_BTSAMPLE_UUID);
+            tmpSock = device.createRfcommSocketToServiceRecord(BLUETOOTH_UUID);
         }catch(IOException e){
             e.printStackTrace();
         }

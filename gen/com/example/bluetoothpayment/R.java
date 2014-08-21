@@ -1124,7 +1124,7 @@ containing a value of this type.
         public static final int list_item=0x7f050029;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
-        public static final int nonPairedDeviceList=0x7f05003e;
+        public static final int nonPairedDeviceList=0x7f05003f;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
         public static final int progress_circular=0x7f050018;
@@ -1147,12 +1147,12 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05001e;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
-        public static final int tableLayout1=0x7f05003f;
-        public static final int tableRow1=0x7f050040;
+        public static final int tableLayout1=0x7f050040;
+        public static final int tableRow1=0x7f050041;
         public static final int tableRow2=0x7f050043;
         public static final int tableRow3=0x7f050049;
         public static final int tableRow4=0x7f05004c;
-        public static final int textView1=0x7f050041;
+        public static final int textView1=0x7f05003e;
         public static final int textView2=0x7f050044;
         public static final int textView3=0x7f050046;
         public static final int textView4=0x7f050048;
@@ -1217,9 +1217,10 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030016;
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_send_main=0x7f030018;
-        public static final int receive_main=0x7f030019;
-        public static final int register_card=0x7f03001a;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
+        public static final int confirm=0x7f030019;
+        public static final int receive_main=0x7f03001a;
+        public static final int register_card=0x7f03001b;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001c;
     }
     public static final class menu {
         public static final int send_main=0x7f0c0000;

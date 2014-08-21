@@ -15,7 +15,7 @@ public class BluetoothServerThread extends Thread {
     static BluetoothAdapter myServerAdapter;
     private Context mContext;
     //UUIDの生成
-    public static final UUID TECHBOOSTER_BTSAMPLE_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    public static final UUID BLUETOOTH_UUID = UUID.fromString("159D63C4-E4C1-43F8-AB06-77AC5716EBF2");
     public String myNumber;
  
     //コンストラクタの定義
@@ -27,7 +27,7 @@ public class BluetoothServerThread extends Thread {
         myNumber = myNum;
         try{
             //自デバイスのBluetoothサーバーソケットの取得
-             tmpServSock = myServerAdapter.listenUsingRfcommWithServiceRecord("BlueToothSample03", TECHBOOSTER_BTSAMPLE_UUID);
+             tmpServSock = myServerAdapter.listenUsingRfcommWithServiceRecord("BlueToothSample03", BLUETOOTH_UUID);
         }catch(IOException e){
             e.printStackTrace();
         }

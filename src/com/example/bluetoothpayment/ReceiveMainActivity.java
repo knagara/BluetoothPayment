@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ReceiveMainActivity extends ActionBarActivity {
 	
@@ -100,6 +101,7 @@ public class ReceiveMainActivity extends ActionBarActivity {
         	    BluetoothDevice device = foundDeviceList.get(position);
         	    BluetoothClientThread BtClientThread = new BluetoothClientThread(mContext, "Receiver", device, mBtAdapter);
         	    BtClientThread.start();
+        	    //Toast.makeText(mContext, "client thread", Toast.LENGTH_SHORT).show();
         	}
         });
         

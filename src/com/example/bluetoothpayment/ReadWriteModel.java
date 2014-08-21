@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.widget.Toast;
+import android.content.Intent;
 
 public class ReadWriteModel extends Thread {
     //ソケットに対するI/O処理
@@ -70,12 +70,11 @@ public class ReadWriteModel extends Thread {
                 }
             }
             
-            Toast.makeText(mContext.getApplicationContext(), rcvNum, Toast.LENGTH_LONG).show();
+            //Toast.makeText(mContext, rcvNum, Toast.LENGTH_LONG).show();
  
-            //TODO
-            //Intent i = new Intent(mContext, StreamActivity.class);
-            //i.putExtra("NUMBER", rcvNum);
-            //mContext.startActivity(i);
+            Intent i = new Intent(mContext, ConfirmActivity.class);
+            i.putExtra("data", rcvNum);
+            mContext.startActivity(i);
         }
     }
 }
