@@ -22,5 +22,6 @@
     <string name="sender">Sender</string>
     <string name="receiver">Receiver</string>
     <string name="start_sending">Starting...</string>
+    <string name="wait_text">Searching...</string>
 
 </resources>

@@ -10,11 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.TextView.BufferType;
 import android.widget.Toast;
 
 public class RegisterCardActivity extends Activity implements OnClickListener {
 
-	EditText cardNumber, validMonth, validYear, yourName;
+	EditText cardNumber, validMonth, validYear, name;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +25,27 @@ public class RegisterCardActivity extends Activity implements OnClickListener {
 		cardNumber = (EditText) findViewById(R.id.card_number);
 		validMonth = (EditText) findViewById(R.id.valid_month);
 		validYear = (EditText) findViewById(R.id.valid_year);
-		yourName = (EditText) findViewById(R.id.your_name);
+		name = (EditText) findViewById(R.id.name);
 
 		View btnRegister = findViewById(R.id.btn_register);
 		btnRegister.setOnClickListener(this);
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String cardNumberDefault = sp.getString("CardNumber", "");
+        String validMonthDefault = sp.getString("ValidMonth", "");
+        String validYearDefault = sp.getString("ValidYear", "");
+        String nameDefault = sp.getString("Name", "");
+
+        cardNumber.setText(cardNumberDefault,BufferType.NORMAL);
+        validMonth.setText(validMonthDefault,BufferType.NORMAL);
+        validYear.setText(validYearDefault,BufferType.NORMAL);
+        name.setText(nameDefault,BufferType.NORMAL);
+        
 	}
 
 	@Override
@@ -52,7 +70,7 @@ public class RegisterCardActivity extends Activity implements OnClickListener {
 		if (cardNumber.getText().toString().equals("")
 				|| validMonth.getText().toString().equals("")
 				|| validYear.getText().toString().equals("")
-				|| yourName.getText().toString().equals("")) {
+				|| name.getText().toString().equals("")) {
 
 			Toast.makeText(this, getString(R.string.please_fill),
 					Toast.LENGTH_SHORT).show();
@@ -65,7 +83,7 @@ public class RegisterCardActivity extends Activity implements OnClickListener {
 			edit.putString("CardNumber", cardNumber.getText().toString());
 			edit.putString("ValidMonth", validMonth.getText().toString());
 			edit.putString("ValidYear", validYear.getText().toString());
-			edit.putString("YourName", yourName.getText().toString());
+			edit.putString("Name", name.getText().toString());
 			edit.putBoolean("IsCardRegistered", true);
 			edit.commit();
 			return true;

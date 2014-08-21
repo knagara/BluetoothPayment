@@ -3,6 +3,7 @@ package com.example.bluetoothpayment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -10,17 +11,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-public class ReceiveMainActivity extends ActionBarActivity {
+public class ReceiveMainActivity extends Activity {
 	
 	Context mContext;
 	ListView nonpairedList;
@@ -28,6 +27,9 @@ public class ReceiveMainActivity extends ActionBarActivity {
 	private List<BluetoothDevice> foundDeviceList;
 	private ArrayAdapter<String> nonPairedDeviceAdapter;
 	private BluetoothAdapter mBtAdapter;
+	//ProgressDialog progressDialog;
+	RelativeLayout relative_layout;
+	TextView waitText;
 	
 
 	private final BroadcastReceiver DeviceFoundReceiver = new BroadcastReceiver(){
@@ -42,29 +44,32 @@ public class ReceiveMainActivity extends ActionBarActivity {
 	        }
 	        if(BluetoothDevice.ACTION_FOUND.equals(action)){
 	            //デバイスが検出された
+	        	relative_layout.removeView(waitText);
 	            foundDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 	            foundDeviceList.add(foundDevice);
 	            if((dName = foundDevice.getName()) != null){
+
+	        	    BtClientRead thread = new BtClientRead(mContext, foundDevice, mBtAdapter);
+	        	    thread.start();
+	        	    //ArrayList<String> dataList = null;
+	        	    String data = "";
+	        	    try {
+						data = thread.getValue();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+	        	    String[] dataArray = data.split("&");
+	        	    String name = dataArray[3];
+	        	    nonPairedDeviceAdapter.add(""+name);
+	        	    
 	                //if(foundDevice.getBondState() != BluetoothDevice.BOND_BONDED){
 	                    //接続したことのないデバイスのみアダプタに詰める
-	                    nonPairedDeviceAdapter.add(dName + "\n" + foundDevice.getAddress());
-	                    Log.d("ACTION_FOUND", dName);
+	                    //nonPairedDeviceAdapter.add(dName + "\n" + foundDevice.getAddress());
+	                    //Log.d("ACTION_FOUND", dName);
 	                //}
 	            }
 	            //nonpairedList.setAdapter(nonPairedDeviceAdapter);
 	        }
-	        /*
-	        if(BluetoothDevice.ACTION_NAME_CHANGED.equals(action)){
-	            //名前が検出された
-	            Log.d("ACTION_NAME_CHANGED", dName);
-	            foundDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-	            //if(foundDevice.getBondState() != BluetoothDevice.BOND_BONDED){
-	                //接続したことのないデバイスのみアダプタに詰める
-	                nonPairedDeviceAdapter.add(dName + "\n" + foundDevice.getAddress());
-	            //}
-	            //nonpairedList.setAdapter(nonPairedDeviceAdapter);
-	        }
-	        */
 	 
 	        if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)){
 	            Log.d("BP","スキャン終了");
@@ -82,6 +87,10 @@ public class ReceiveMainActivity extends ActionBarActivity {
         nonpairedList = (ListView)findViewById(R.id.nonPairedDeviceList);
 		dataList = new ArrayList<String>();
 		foundDeviceList = new ArrayList<BluetoothDevice>();
+		//progressDialog = new ProgressDialog(this);
+		//progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		relative_layout = (RelativeLayout)findViewById(R.id.relative_layout);
+		waitText = (TextView)findViewById(R.id.waitText);
 
 		//インテントフィルターとBroadcastReceiverの登録
         IntentFilter filter = new IntentFilter();
@@ -99,8 +108,8 @@ public class ReceiveMainActivity extends ActionBarActivity {
         	@Override
         	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         	    BluetoothDevice device = foundDeviceList.get(position);
-        	    BluetoothClientThread BtClientThread = new BluetoothClientThread(mContext, "Receiver", device, mBtAdapter);
-        	    BtClientThread.start();
+        	    //BluetoothClientThread BtClientThread = new BluetoothClientThread(mContext, "Receiver", device, mBtAdapter);
+        	    //BtClientThread.start();
         	    //Toast.makeText(mContext, "client thread", Toast.LENGTH_SHORT).show();
         	}
         });
@@ -120,6 +129,10 @@ public class ReceiveMainActivity extends ActionBarActivity {
 		super.onResume();
 		// 周辺デバイスの検索開始
 		mBtAdapter.startDiscovery();
+		//プログレスダイアログ
+		//progressDialog.setMessage("デバイスを検索しています...");
+		//progressDialog.setCancelable(true);
+		//progressDialog.show();
 	}
 
 	@Override
@@ -132,27 +145,4 @@ public class ReceiveMainActivity extends ActionBarActivity {
 		unregisterReceiver(DeviceFoundReceiver);
 		}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.send_main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_sender) {
-		      Intent intent = new Intent(ReceiveMainActivity.this, SendMainActivity.class);
-		      startActivity(intent);
-			return true;
-		}
-		if (id == R.id.action_receiver) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 }

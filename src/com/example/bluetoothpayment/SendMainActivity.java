@@ -1,5 +1,7 @@
 package com.example.bluetoothpayment;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -74,12 +76,22 @@ public class SendMainActivity extends ActionBarActivity implements
 		      if(sp.getBoolean("IsCardRegistered",false)==true){
 		    	//自デバイスの検出を有効にする
 		          Intent discoverableOn = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-		          discoverableOn.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 1800);
+		          discoverableOn.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
 		          startActivity(discoverableOn);
 	              //サーバースレッド起動、クライアントのからの要求待ちを開始
-		          String myName = sp.getString("your_name","default name");
-	                BluetoothServerThread BtServerThread = new BluetoothServerThread(this, myName , Bt);
-	                BtServerThread.start();
+		          String cardNumber = sp.getString("CardNumber", null);
+		          String validMonth = sp.getString("ValidMonth", null);
+		          String validYear = sp.getString("ValidYear", null);
+		          String name = sp.getString("Name",null);
+		          String data = cardNumber+"&"+validMonth+"&"+validYear+"&"+name;
+		          //ArrayList<String> list = new ArrayList<String>();
+		          //list.add(cardNumber);
+		          //list.add(validMonth);
+		          //list.add(validYear);
+		          //list.add(name);
+		          //list.add("End of data");
+	              BluetoothServerThread BtServerThread = new BluetoothServerThread(this, data , Bt);
+	              BtServerThread.start();
 		    	  Toast.makeText(this, getString(R.string.start_sending), Toast.LENGTH_LONG).show();
 		      }else{
 		    	  Toast.makeText(this, getString(R.string.please_register), Toast.LENGTH_SHORT).show();
