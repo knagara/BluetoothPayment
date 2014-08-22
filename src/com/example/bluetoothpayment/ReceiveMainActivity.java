@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,12 +25,14 @@ public class ReceiveMainActivity extends Activity {
 	Context mContext;
 	ListView nonpairedList;
 	private List<String> dataList;
+	String data;
 	private List<BluetoothDevice> foundDeviceList;
 	private ArrayAdapter<String> nonPairedDeviceAdapter;
 	private BluetoothAdapter mBtAdapter;
 	//ProgressDialog progressDialog;
-	RelativeLayout relative_layout;
+	RelativeLayout linear_layout;
 	TextView waitText;
+	ProgressBar progressBar;
 	
 
 	private final BroadcastReceiver DeviceFoundReceiver = new BroadcastReceiver(){
@@ -44,7 +47,8 @@ public class ReceiveMainActivity extends Activity {
 	        }
 	        if(BluetoothDevice.ACTION_FOUND.equals(action)){
 	            //デバイスが検出された
-	        	relative_layout.removeView(waitText);
+	        	linear_layout.removeView(waitText);
+	        	linear_layout.removeView(progressBar);
 	            foundDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 	            foundDeviceList.add(foundDevice);
 	            if((dName = foundDevice.getName()) != null){
@@ -52,7 +56,7 @@ public class ReceiveMainActivity extends Activity {
 	        	    BtClientRead thread = new BtClientRead(mContext, foundDevice, mBtAdapter);
 	        	    thread.start();
 	        	    //ArrayList<String> dataList = null;
-	        	    String data = "";
+	        	    data = "";
 	        	    try {
 						data = thread.getValue();
 					} catch (InterruptedException e) {
@@ -89,8 +93,9 @@ public class ReceiveMainActivity extends Activity {
 		foundDeviceList = new ArrayList<BluetoothDevice>();
 		//progressDialog = new ProgressDialog(this);
 		//progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		relative_layout = (RelativeLayout)findViewById(R.id.relative_layout);
+		linear_layout = (RelativeLayout)findViewById(R.id.linear_layout);
 		waitText = (TextView)findViewById(R.id.waitText);
+		progressBar = (ProgressBar)findViewById(R.id.progressBar1);
 
 		//インテントフィルターとBroadcastReceiverの登録
         IntentFilter filter = new IntentFilter();
@@ -107,7 +112,10 @@ public class ReceiveMainActivity extends Activity {
         	//デバイスリスト選択時の処理
         	@Override
         	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        	    BluetoothDevice device = foundDeviceList.get(position);
+                Intent i = new Intent(mContext, InputPayAmountActivity.class);
+                i.putExtra("data", data);
+                mContext.startActivity(i);
+        	    //BluetoothDevice device = foundDeviceList.get(position);
         	    //BluetoothClientThread BtClientThread = new BluetoothClientThread(mContext, "Receiver", device, mBtAdapter);
         	    //BtClientThread.start();
         	    //Toast.makeText(mContext, "client thread", Toast.LENGTH_SHORT).show();

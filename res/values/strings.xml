@@ -23,5 +23,13 @@
     <string name="receiver">Receiver</string>
     <string name="start_sending">Starting...</string>
     <string name="wait_text">Searching...</string>
+    <string name="clear">Clear</string>
+    <string name="confirm">Confirm</string>
+    <string name="enter_pin">Please enter your PIN</string>
+    <string name="enter_pay_amount">Please enter the amount of pay</string>
+    <string name="sann"></string>
+    <string name="payment_finish">The payment has been finished.</string>
+    <string name="total_amount">Total</string>
+    <string name="find_another_device">Find another device</string>
 
 </resources>

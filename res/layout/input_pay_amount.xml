@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2" >
+
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_pay_amount"
+                android:text="1"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_pay_amount"
+                android:textColor="@color/black"
+                android:text="2" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_pay_amount"
+                android:textColor="@color/black"
+                android:text="3" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_pay_amount"
+                android:textColor="@color/black"
+                android:text="4" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_pay_amount"
+                android:textColor="@color/black"
+                android:text="5" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_pay_amount"
+                android:textColor="@color/black"
+                android:text="6" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_pay_amount"
+                android:textColor="@color/black"
+                android:text="7" />
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_pay_amount"
+                android:textColor="@color/black"
+                android:text="8" />
+
+            <Button
+                android:id="@+id/button9"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_pay_amount"
+                android:textColor="@color/black"
+                android:text="9" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/button00"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_pay_amount"
+                android:textColor="@color/black"
+                android:text="00" />
+
+            <Button
+                android:id="@+id/button0"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_pay_amount"
+                android:textColor="@color/black"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/buttonConfirm"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_number"
+                android:text="@string/confirm"
+                android:textColor="@color/white" />
+
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/amountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tableLayout1"
+        android:layout_alignLeft="@+id/tableLayout1"
+        android:layout_alignRight="@+id/tableLayout1"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/confirm_pay_amount"
+        android:gravity="right"
+        android:text="円"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="29dp"
+        android:text="@string/enter_pay_amount"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>
