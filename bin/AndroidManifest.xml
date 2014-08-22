@@ -26,12 +26,7 @@
         </activity>
         <activity android:name="RegisterCardActivity"></activity>
         <activity android:name="ReceiveMainActivity"></activity>
-        <activity android:name="InputPayAmountActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter></activity>
+        <activity android:name="InputPayAmountActivity"></activity>
         <activity android:name="InputPinActivity"></activity>
         <activity android:name="ConfirmActivity"></activity>
     </application>

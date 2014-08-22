@@ -1,12 +1,13 @@
 package com.example.bluetoothpayment;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -14,20 +15,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SendMainActivity extends ActionBarActivity implements
-		OnClickListener {
+		OnClickListener, Runnable {
 
+	Context mContext;
 	SharedPreferences sp;
 	//Editor edit;
 	BluetoothAdapter Bt;
     private final int REQUEST_ENABLE_BLUETOOTH = 10;
+    private final int BLUETOOTH_DURATION = 300;
+    TextView textViewConnecting;
+    private Thread thread;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_send_main);
+		mContext = this;
 		
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         //edit = sp.edit();
@@ -36,6 +43,8 @@ public class SendMainActivity extends ActionBarActivity implements
 		btnSendMainRegister.setOnClickListener(this);
 		View btnSendMainStart = findViewById(R.id.btn_send_main_start);
 		btnSendMainStart.setOnClickListener(this);
+		
+		textViewConnecting = (TextView)findViewById(R.id.textViewConnecting);
 		
 		
 		//Bluetooth
@@ -76,7 +85,7 @@ public class SendMainActivity extends ActionBarActivity implements
 		      if(sp.getBoolean("IsCardRegistered",false)==true){
 		    	//自デバイスの検出を有効にする
 		          Intent discoverableOn = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-		          discoverableOn.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+		          discoverableOn.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, BLUETOOTH_DURATION);
 		          startActivity(discoverableOn);
 	              //サーバースレッド起動、クライアントのからの要求待ちを開始
 		          String cardNumber = sp.getString("CardNumber", null);
@@ -92,7 +101,10 @@ public class SendMainActivity extends ActionBarActivity implements
 		          //list.add("End of data");
 	              BluetoothServerThread BtServerThread = new BluetoothServerThread(this, data , Bt);
 	              BtServerThread.start();
-		    	  Toast.makeText(this, getString(R.string.start_sending), Toast.LENGTH_LONG).show();
+	              textViewConnecting.setText(mContext.getString(R.string.connecting));
+	              thread = new Thread(this);
+	              thread.start();
+		    	  //Toast.makeText(this, getString(R.string.start_sending), Toast.LENGTH_LONG).show();
 		      }else{
 		    	  Toast.makeText(this, getString(R.string.please_register), Toast.LENGTH_SHORT).show();
 		      }
@@ -136,4 +148,28 @@ public class SendMainActivity extends ActionBarActivity implements
 	            }
 	        }
 	}
+
+    @Override
+    public void run() {
+        try {
+            //ダイアログがしっかり見えるように少しだけスリープ
+            //（nnn：任意のスリープ時間・ミリ秒単位）
+            Thread.sleep(BLUETOOTH_DURATION * 1000);
+        } catch (InterruptedException e) {
+            //スレッドの割り込み処理を行った場合に発生、catchの実装は割愛
+        }
+        //run内でUIの操作をしてしまうと、例外が発生する為、
+        //Handlerにバトンタッチ
+        handler.sendEmptyMessage(0);
+    }
+     
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg){
+            // HandlerクラスではActivityを継承してないため
+            // 別の親クラスのメソッドにて処理を行うようにした。
+            //YYY();
+     
+        	textViewConnecting.setText(" ");
+        }
+    };
 }

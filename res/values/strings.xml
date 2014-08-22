@@ -19,6 +19,7 @@
     <string name="please_register">Please register your card first</string>
     <string name="please_fill">Please fill in the forms</string>
     <string name="register_success">Register Success</string>
+    <string name="connecting">Connecting...</string>
     <string name="sender">Sender</string>
     <string name="receiver">Receiver</string>
     <string name="start_sending">Starting...</string>

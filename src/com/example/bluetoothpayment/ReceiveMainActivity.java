@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -30,7 +31,7 @@ public class ReceiveMainActivity extends Activity {
 	private ArrayAdapter<String> nonPairedDeviceAdapter;
 	private BluetoothAdapter mBtAdapter;
 	//ProgressDialog progressDialog;
-	RelativeLayout linear_layout;
+	LinearLayout linear_layout;
 	TextView waitText;
 	ProgressBar progressBar;
 	
@@ -47,24 +48,28 @@ public class ReceiveMainActivity extends Activity {
 	        }
 	        if(BluetoothDevice.ACTION_FOUND.equals(action)){
 	            //デバイスが検出された
-	        	linear_layout.removeView(waitText);
-	        	linear_layout.removeView(progressBar);
+	            Log.d("BP","デバイス検出");
 	            foundDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 	            foundDeviceList.add(foundDevice);
 	            if((dName = foundDevice.getName()) != null){
-
+		            Log.d("BP","デバイス: "+dName);
 	        	    BtClientRead thread = new BtClientRead(mContext, foundDevice, mBtAdapter);
 	        	    thread.start();
+		            Log.d("BP","BtClientThreadスタート");
 	        	    //ArrayList<String> dataList = null;
 	        	    data = "";
 	        	    try {
 						data = thread.getValue();
+			            Log.d("BP","BtClientThread getValue");
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+		        	linear_layout.removeView(waitText);
+		        	linear_layout.removeView(progressBar);
 	        	    String[] dataArray = data.split("&");
 	        	    String name = dataArray[3];
 	        	    nonPairedDeviceAdapter.add(""+name);
+		            Log.d("BP","デバイス検出終了");
 	        	    
 	                //if(foundDevice.getBondState() != BluetoothDevice.BOND_BONDED){
 	                    //接続したことのないデバイスのみアダプタに詰める
@@ -93,7 +98,7 @@ public class ReceiveMainActivity extends Activity {
 		foundDeviceList = new ArrayList<BluetoothDevice>();
 		//progressDialog = new ProgressDialog(this);
 		//progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		linear_layout = (RelativeLayout)findViewById(R.id.linear_layout);
+		linear_layout = (LinearLayout)findViewById(R.id.linear_layout);
 		waitText = (TextView)findViewById(R.id.waitText);
 		progressBar = (ProgressBar)findViewById(R.id.progressBar1);
 
