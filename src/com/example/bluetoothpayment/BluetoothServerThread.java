@@ -1,13 +1,13 @@
 package com.example.bluetoothpayment;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.util.Log;
 
 public class BluetoothServerThread extends Thread {
     //サーバー側の処理
@@ -42,6 +42,7 @@ public class BluetoothServerThread extends Thread {
         while(true){
             try{
                 //クライアント側からの接続要求待ち。ソケットが返される。
+            	Log.d("BP","server accept 待ち");
                 receivedSocket = servSock.accept();
             }catch(IOException e){
                 break;
@@ -49,9 +50,11 @@ public class BluetoothServerThread extends Thread {
  
             if(receivedSocket != null){
                 //ソケットを受け取れていた(接続完了時)の処理
+            	Log.d("BP","server ソケット受け取り");
             	
             	BtServerWrite thread = new BtServerWrite(mContext, receivedSocket, data);
             	thread.start();
+            	Log.d("BP","server BtServerWriteスタート");
             	
                 //RwClassにmanageSocketを移す
                 //ReadWriteModel rw = new ReadWriteModel(mContext, receivedSocket, myNumber);
@@ -60,6 +63,7 @@ public class BluetoothServerThread extends Thread {
                 try {
                     //処理が完了したソケットは閉じる。
                     servSock.close();
+                	Log.d("BP","server close");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -71,6 +75,7 @@ public class BluetoothServerThread extends Thread {
     public void cancel() {
             try {
                 servSock.close();
+            	Log.d("BP","server close");
             } catch (IOException e) { }
         }
 }

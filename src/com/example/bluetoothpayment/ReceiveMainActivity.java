@@ -61,6 +61,8 @@ public class ReceiveMainActivity extends Activity {
 	        	    try {
 						data = thread.getValue();
 			            Log.d("BP","BtClientThread getValue");
+			            thread.cancel();
+			            Log.d("BP","BtClientThreadストップ");
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

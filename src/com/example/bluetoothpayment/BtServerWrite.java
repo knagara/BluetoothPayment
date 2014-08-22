@@ -29,6 +29,7 @@ public class BtServerWrite extends Thread {
             //接続済みソケットからI/Oストリームをそれぞれ取得
             in = socket.getInputStream();
             out = socket.getOutputStream();
+    		Log.d("BP","server stream 取得 ");
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -39,6 +40,7 @@ public class BtServerWrite extends Thread {
         //Outputストリームへのデータ書き込み
         try {
             out.write(buf);
+    		Log.d("BP","server out.write(buf) ");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -49,7 +51,7 @@ public class BtServerWrite extends Thread {
         try {
         	//for(int i=0;i<dataList.size();i++){
         		write(data.getBytes("UTF-8"));
-        		Log.d("BluetoothPayment","data write "+data);
+        		Log.d("BP","server data write "+data);
         	//}
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block

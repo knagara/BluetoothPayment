@@ -45,6 +45,7 @@ public class BtClientRead extends Thread {
 		try {
 			// 自デバイスのBluetoothクライアントソケットの取得
 			tmpSock = device.createRfcommSocketToServiceRecord(BLUETOOTH_UUID);
+			Log.d("BP","client socket 取得");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -60,6 +61,7 @@ public class BtClientRead extends Thread {
 		try {
 			// サーバー側に接続要求
 			clientSocket.connect();
+			Log.d("BP","client socket connect");
 		} catch (IOException e) {
 			try {
 				clientSocket.close();
@@ -78,6 +80,7 @@ public class BtClientRead extends Thread {
 		try {
 			in = clientSocket.getInputStream();
 			out = clientSocket.getOutputStream();
+			Log.d("BP","stream 取得");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -88,13 +91,14 @@ public class BtClientRead extends Thread {
 		//while (true) {
 			try {
 				tmpBuf = in.read(buf);
+				Log.d("BP","in.read(buf)");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			if (tmpBuf != 0) {
 				try {
 					str = new String(buf, "UTF-8");
-	        		Log.d("BluetoothPayment","data read "+str);
+	        		Log.d("BP","data read ");
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
@@ -131,6 +135,7 @@ public class BtClientRead extends Thread {
 	public void cancel() {
 		try {
 			clientSocket.close();
+			Log.d("BP","client close");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
