@@ -31,6 +31,6 @@
     <string name="sann">さん、</string>
     <string name="payment_finish">お取引が完了しました。</string>
     <string name="total_amount">合計金額</string>
-    <string name="find_another_device">受信画面へ戻る</string>
+    <string name="find_another_device">最初の画面へ戻る</string>
 
 </resources>

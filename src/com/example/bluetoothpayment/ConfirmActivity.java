@@ -48,7 +48,7 @@ public class ConfirmActivity extends ActionBarActivity implements OnClickListene
 
 	    switch(v.getId()){
 	    case R.id.buttonBack:
-            Intent i = new Intent(mContext, ReceiveMainActivity.class);
+            Intent i = new Intent(mContext, ReceiverMainActivity.class);
             mContext.startActivity(i);
             break;
 	    }
@@ -73,7 +73,7 @@ public class ConfirmActivity extends ActionBarActivity implements OnClickListene
 			return true;
 		}
 		if (id == R.id.action_receiver) {
-		      Intent intent = new Intent(this, ReceiveMainActivity.class);
+		      Intent intent = new Intent(this, ReceiverMainActivity.class);
 		      startActivity(intent);
 			return true;
 		}

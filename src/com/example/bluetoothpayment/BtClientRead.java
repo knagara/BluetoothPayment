@@ -80,7 +80,7 @@ public class BtClientRead extends Thread {
 		try {
 			in = clientSocket.getInputStream();
 			out = clientSocket.getOutputStream();
-			Log.d("BP","stream Žæ“¾");
+			Log.d("BP","client stream Žæ“¾");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -91,14 +91,14 @@ public class BtClientRead extends Thread {
 		//while (true) {
 			try {
 				tmpBuf = in.read(buf);
-				Log.d("BP","in.read(buf)");
+				Log.d("BP","client in.read(buf)");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			if (tmpBuf != 0) {
 				try {
 					str = new String(buf, "UTF-8");
-	        		Log.d("BP","data read ");
+	        		Log.d("BP","client data read ");
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}

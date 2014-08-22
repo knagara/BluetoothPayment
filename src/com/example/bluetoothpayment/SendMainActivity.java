@@ -29,11 +29,12 @@ public class SendMainActivity extends ActionBarActivity implements
     private final int BLUETOOTH_DURATION = 300;
     TextView textViewConnecting;
     private Thread thread;
+    BluetoothServerThread BtServerThread;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_send_main);
+		setContentView(R.layout.send_main);
 		mContext = this;
 		
         sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -99,7 +100,7 @@ public class SendMainActivity extends ActionBarActivity implements
 		          //list.add(validYear);
 		          //list.add(name);
 		          //list.add("End of data");
-	              BluetoothServerThread BtServerThread = new BluetoothServerThread(this, data , Bt);
+	              BtServerThread = new BluetoothServerThread(this, data , Bt);
 	              BtServerThread.start();
 	              textViewConnecting.setText(mContext.getString(R.string.connecting));
 	              thread = new Thread(this);
@@ -129,7 +130,7 @@ public class SendMainActivity extends ActionBarActivity implements
 			return true;
 		}
 		if (id == R.id.action_receiver) {
-		      Intent intent = new Intent(SendMainActivity.this, ReceiveMainActivity.class);
+		      Intent intent = new Intent(SendMainActivity.this, ReceiverMainActivity.class);
 		      startActivity(intent);
 			return true;
 		}
@@ -170,6 +171,7 @@ public class SendMainActivity extends ActionBarActivity implements
             //YYY();
      
         	textViewConnecting.setText(" ");
+        	BtServerThread.cancel();
         }
     };
 }

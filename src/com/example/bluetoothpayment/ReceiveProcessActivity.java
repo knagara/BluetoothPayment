@@ -21,7 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class ReceiveMainActivity extends Activity {
+public class ReceiveProcessActivity extends Activity {
 	
 	Context mContext;
 	ListView nonpairedList;
@@ -60,7 +60,6 @@ public class ReceiveMainActivity extends Activity {
 	        	    data = "";
 	        	    try {
 						data = thread.getValue();
-			            Log.d("BP","BtClientThread getValue");
 			            thread.cancel();
 			            Log.d("BP","BtClientThreadストップ");
 					} catch (InterruptedException e) {
@@ -91,7 +90,7 @@ public class ReceiveMainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.receive_main);
+		setContentView(R.layout.receive_process);
 		
 		//初期化
 		mContext = (Context)this;
@@ -149,6 +148,18 @@ public class ReceiveMainActivity extends Activity {
 		//progressDialog.setCancelable(true);
 		//progressDialog.show();
 	}
+	
+	@Override
+	protected void onStop(){
+		super.onStop();
+
+		// 検索中止
+		if (mBtAdapter.isDiscovering()) {
+			mBtAdapter.cancelDiscovery();
+		}
+		unregisterReceiver(DeviceFoundReceiver);
+		
+	}
 
 	@Override
 	protected void onDestroy() {
@@ -158,6 +169,6 @@ public class ReceiveMainActivity extends Activity {
 			mBtAdapter.cancelDiscovery();
 		}
 		unregisterReceiver(DeviceFoundReceiver);
-		}
+	}
 	
 }

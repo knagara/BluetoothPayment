@@ -51,7 +51,7 @@ public class BtServerWrite extends Thread {
         try {
         	//for(int i=0;i<dataList.size();i++){
         		write(data.getBytes("UTF-8"));
-        		Log.d("BP","server data write "+data);
+        		Log.d("BP","server data write ");
         	//}
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block

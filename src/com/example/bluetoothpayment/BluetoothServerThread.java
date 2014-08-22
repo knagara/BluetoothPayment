@@ -59,7 +59,7 @@ public class BluetoothServerThread extends Thread {
                 //RwClassにmanageSocketを移す
                 //ReadWriteModel rw = new ReadWriteModel(mContext, receivedSocket, myNumber);
                 //rw.start();
- 
+            	/*
                 try {
                     //処理が完了したソケットは閉じる。
                     servSock.close();
@@ -68,6 +68,7 @@ public class BluetoothServerThread extends Thread {
                     e.printStackTrace();
                 }
                 break;
+                */
             }
         }
     }

@@ -25,7 +25,8 @@
             </intent-filter>
         </activity>
         <activity android:name="RegisterCardActivity"></activity>
-        <activity android:name="ReceiveMainActivity"></activity>
+        <activity android:name="ReceiverMainActivity"></activity>
+        <activity android:name="ReceiveProcessActivity"></activity>
         <activity android:name="InputPayAmountActivity"></activity>
         <activity android:name="InputPinActivity"></activity>
         <activity android:name="ConfirmActivity"></activity>
